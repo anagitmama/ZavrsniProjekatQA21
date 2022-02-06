@@ -8,7 +8,7 @@ public class Strings {
     public static final String NONEXISTENT_EMAIL = "sdjsljjdl@nesto.com";
     public static final String WELCOME_PAGE_URL = "https://www.kupujemprodajem.com/user.php?action=welcome";
     public static final String WRONG_PAGE_MESSAGE = "Wrong page!";
-    public static final String ABSENT_ELEMENT = "Element nije prisutan";
+    public static final String ELEMENT_NOT_PRESENT = "Element not present";
     public static final String VALUES_NOT_MATCHING = "Values not matching";
     public static final String AUTO = "auto";
     public static final String AUTO_NEWLINE = "auto\n";
@@ -17,7 +17,7 @@ public class Strings {
     public static final String KAKO_DA_POSTAVITE_OGLAS = "https://blog.kupujemprodajem.com/kako-da/kako-da-postavite-prvi-oglas-preko-desktop-sajta/";
     public static final String FACEBOOK = "https://www.facebook.com/KupujemProdajem";
     public static final String LINKEDIN = "https://www.linkedin.com/company/kupujemprodajem-com";
-    public static final String INSTAGRAM_LOGIN = "https://www.instagram.com/accounts/login/";
+    public static final String INSTAGRAM_LOGIN = "https://www.instagram.com/accounts/login/?next=/kupujemprodajem/";
     public static final String INSTAGRAM_REDIRECT = "https://www.instagram.com/kupujemprodajem/";
     public static final String WELCOME = "welcome";
     public static final String SEARCH = "search";
@@ -33,4 +33,8 @@ public class Strings {
     public static final String AD = "oglas";
     public static final String AD_NOT_FOLLOWED = "Oglas nije zapracen!";
     public static final String NOT_UNFOLLOWED = "Nije otpraceno";
+    public static final String LOGIN = "login";
+    public static final String INDEX = "index.php";
+    public static final String IS_ELEMENT_PRESENT = "Is element present";
+    public static final String JS_CLICK = "arguments[0].click()";
 }

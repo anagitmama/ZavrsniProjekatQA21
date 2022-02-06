@@ -40,12 +40,14 @@ public class LogInPage extends BasePage {
     }
 
     public void enterEmail(String email) {
+        wait.until(ExpectedConditions.visibilityOf(emailField));
         assert isElementPresent(emailField) : "Error login form is not open";
         emailField.click();
         emailField.sendKeys(email);
     }
 
     public void enterPassword(String password) {
+        wait.until(ExpectedConditions.visibilityOf(passwordField));
         assert isElementPresent(passwordField) : "Error login form is not open";
         passwordField.click();
         passwordField.sendKeys(password);
@@ -78,7 +80,6 @@ public class LogInPage extends BasePage {
     public void assertEmptyCredentialsLogIn() {
         wait.until(ExpectedConditions.visibilityOf(emailRequired));
         wait.until(ExpectedConditions.visibilityOf(passwordRequired));
-        assert isElementPresent(emailRequired) : "Error required email";
         assert emailRequired.getText().equals("Polje ne može biti prazno") : "ne radi";
         assert passwordRequired.getText().equals("Polje ne može biti prazno") : "ne radi";
     }

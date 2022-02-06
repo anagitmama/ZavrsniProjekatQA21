@@ -21,9 +21,9 @@ public class RedirectionTest extends BaseTest {
      * 2. In header section click KP blog
      * 3. In header section click Reklamirajte svoj biznis
      * 4. In header section click Kako da postavite oglas?
-     * 5. In header section click Fejsbuk ikonicu
-     * 6. In header section click LinkedIn ikonicu
-     * 7. In header section click Instagram
+     * 5. In header section click Facebook icon
+     * 6. In header section click LinkedIn icon
+     * 7. In header section click Instagram icon
      * <p>
      * Expected result:
      * 2. Verify you are navigated to https://blog.kupujemprodajem.com/

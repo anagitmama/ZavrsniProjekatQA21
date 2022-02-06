@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import java.text.ParseException;
 
-import static Pages.Strings.ABSENT_ELEMENT;
+import static Pages.Strings.ELEMENT_NOT_PRESENT;
 import static Pages.Strings.VALUES_NOT_MATCHING;
 
 public class ExchangeCurrencyTest extends BaseTest {
@@ -44,8 +44,8 @@ public class ExchangeCurrencyTest extends BaseTest {
     public void EURtoRSDconversion() throws ParseException, InterruptedException {
        BasePage basePage = new BasePage(driver);
        basePage.closeLogInModal();
-       assert basePage.isElementPresent(basePage.getNBSwidget()) : ABSENT_ELEMENT;
-       double amount = 200 ;
+       assert basePage.isElementPresent(basePage.getNBSwidget()) : ELEMENT_NOT_PRESENT;
+       double amount = 100 ;
        basePage.enterValueIntoNbsAmountField(amount);
        double exchangedValue = basePage.getExchangedValue();
        print(Double.toString(exchangedValue));
@@ -56,7 +56,7 @@ public class ExchangeCurrencyTest extends BaseTest {
     public void RSDtoEURconversion() throws InterruptedException, ParseException {
         BasePage basePage = new BasePage(driver);
         basePage.closeLogInModal();
-        assert basePage.isElementPresent(basePage.getNBSwidget()) : ABSENT_ELEMENT;
+        assert basePage.isElementPresent(basePage.getNBSwidget()) : ELEMENT_NOT_PRESENT;
         basePage.getEURdropdown().click();
         basePage.getRSDValue().click();
         Thread.sleep(3000);
