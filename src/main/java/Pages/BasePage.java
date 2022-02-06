@@ -198,13 +198,13 @@ public class BasePage {
     }
 
     public boolean isElementPresent(WebElement element) {
-        print("Is element present");
+        print(Strings.IS_ELEMENT_PRESENT);
         try {
             boolean isPresent = element.isDisplayed();
-            return true;
+            return isPresent;
         } catch (Exception e) {
             print(e.getMessage());
-            print("Element is not present on page");
+            print(Strings.ELEMENT_NOT_PRESENT);
             return false;
         }
 
@@ -222,13 +222,13 @@ public class BasePage {
     }
 
     public double getExchangedValue() throws ParseException {
-        assert isElementPresent(convertedValue) : "Element not present";
+        assert isElementPresent(convertedValue) : Strings.ELEMENT_NOT_PRESENT;
         NumberFormat format = NumberFormat.getInstance(Locale.ITALIAN);
         return format.parse(convertedValue.getText()).doubleValue();
     }
 
     public double getExchangeRate() throws ParseException {
-        assert isElementPresent(exchangeRate) : "Element not present";
+        assert isElementPresent(exchangeRate) : Strings.ELEMENT_NOT_PRESENT;
         NumberFormat format = NumberFormat.getInstance(Locale.ITALIAN);
         return format.parse(exchangeRate.getText()).doubleValue();
 
@@ -258,7 +258,7 @@ public class BasePage {
 //        element.click();
 //        Thread.sleep(5000);
         JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("arguments[0].click()", element);
+        jse.executeScript(Strings.JS_CLICK, element);
     }
 
     public void enterTextinSearchField(String text) {
@@ -269,12 +269,12 @@ public class BasePage {
 
     public void jsClick(WebElement element) {
         JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("arguments[0].click()", element);
+        jse.executeScript(Strings.JS_CLICK, element);
     }
 
     public void clickKupujemProdajemTitleIcon() {
         click(kupujemProdajemTitleIcon);
-        wait.until(ExpectedConditions.urlContains("index.php"));
+        wait.until(ExpectedConditions.urlContains(Strings.INDEX));
     }
 
     public int getNumberOfFollowedAds() {
