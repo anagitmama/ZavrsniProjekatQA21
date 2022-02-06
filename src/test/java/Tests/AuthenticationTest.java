@@ -11,11 +11,14 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import static Pages.Strings.WELCOME_PAGE_URL;
+import static Pages.Strings.WRONG_PAGE_MESSAGE;
+
 public class AuthenticationTest extends BaseTest{
 
-    public WebDriver driver;
+
     @BeforeTest
-    public void initDriver(){driver = OpenChromeDriver();
+    public void initDriver(){OpenChromeDriver();
     }
 
     @AfterTest
@@ -40,9 +43,8 @@ public class AuthenticationTest extends BaseTest{
     public void testLogInWithValidCredentials(){
         clearPreviousData();
         login(Strings.VALID_EMAIL, Strings.VALID_PASSWORD);
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.urlToBe("https://www.kupujemprodajem.com/user.php?action=welcome"));
-        assert this.isCurrentURLEqualTo("https://www.kupujemprodajem.com/user.php?action=welcome") : "Wrong page!";
+        wait.until(ExpectedConditions.urlToBe(WELCOME_PAGE_URL));
+        assert this.isCurrentURLEqualTo(WELCOME_PAGE_URL) : WRONG_PAGE_MESSAGE;
         UserWelcomePage welcomePage = new UserWelcomePage(driver);
         welcomePage.assertLogoutButtonPresent();
     }
@@ -51,28 +53,28 @@ public class AuthenticationTest extends BaseTest{
     testLogInWithInvalidEmailInvalidPassword(){
         clearPreviousData();
         LogInPage login = login(Strings.INVALID_EMAIL, Strings.INVALID_PASSWORD);
-        assert !this.isCurrentURLEqualTo("https://www.kupujemprodajem.com/user.php?action=welcome") : "Wrong page!";
+        assert !this.isCurrentURLEqualTo(WELCOME_PAGE_URL) :WRONG_PAGE_MESSAGE;
         login.assertInvalidLogIn();
     }
     @Test(priority = 2)
     public void testLogInWithValidEmailInvalidPassword(){
         clearPreviousData();
         LogInPage login = login(Strings.VALID_EMAIL, Strings.INVALID_PASSWORD);
-        assert !this.isCurrentURLEqualTo("https://www.kupujemprodajem.com/user.php?action=welcome") : "Wrong page!";
+        assert !this.isCurrentURLEqualTo(WELCOME_PAGE_URL) :WRONG_PAGE_MESSAGE;
         login.assertValidEmailInvalidPasswordLogIn();
     }
     @Test(priority = 3)
     public void testLogInWithNonExistentEmailValidPassword(){
         clearPreviousData();
         LogInPage login = login(Strings.NONEXISTENT_EMAIL, Strings.VALID_PASSWORD);
-        assert !this.isCurrentURLEqualTo("https://www.kupujemprodajem.com/user.php?action=welcome") : "Wrong page!";
+        assert !this.isCurrentURLEqualTo(WELCOME_PAGE_URL) : WRONG_PAGE_MESSAGE;
         login.assertNonexistentEmailValidPasswordLogIn();
     }
     @Test(priority = 4)
     public void testLogInWithEmptyCredentials(){
         clearPreviousData();
         LogInPage login = login("","");
-        assert !this.isCurrentURLEqualTo("https://www.kupujemprodajem.com/user.php?action=welcome") : "Wrong page!";
+        assert !this.isCurrentURLEqualTo(WELCOME_PAGE_URL) : WRONG_PAGE_MESSAGE;
         login.assertEmptyCredentialsLogIn();
     }
 

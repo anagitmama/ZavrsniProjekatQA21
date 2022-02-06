@@ -16,8 +16,8 @@ import java.util.Locale;
 
 public class BasePage {
 
-    WebDriver driver = null;
-
+    WebDriver driver;
+    WebDriverWait wait;
     @FindBy(className = "kpBoxCloseButton")
     WebElement kpBoxCloseLogInModalButton;
     @FindBy(className = "kpBoxContentHolder")
@@ -66,11 +66,20 @@ public class BasePage {
     WebElement locationSort;
     @FindBy(xpath = "//*[@data-text='Kragujevac']")
     WebElement locationKragujevac;
+    @FindBy(xpath = "//*[@id='mojKpFollowedAdsCount']")
+    WebElement followedAdCount;
+    @FindBy(xpath = "//*[@title='KupujemProdajem']")
+    WebElement kupujemProdajemTitleIcon;
 
     /*konstruktor*/
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        wait = new WebDriverWait(driver, 15);
+    }
+
+    public WebElement getFollowedAdCount() {
+        return followedAdCount;
     }
 
     public WebElement getLocationKragujevac() {
@@ -237,11 +246,14 @@ public class BasePage {
         print(element.getText());
     }
 
+    public void clickOnFollowedAds() {
+        wait.until(ExpectedConditions.visibilityOf(followedAdCount));
+        jsClick(followedAdCount);
+    }
 
     public void clickOnAdFromList(int i) throws InterruptedException {
         List<WebElement> adListofElements = driver.findElements(By.xpath("//*[contains(@class, 'adName')]"));
         WebElement element = adListofElements.get(i);
-        WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.elementToBeClickable(element));
 //        element.click();
 //        Thread.sleep(5000);
@@ -250,7 +262,6 @@ public class BasePage {
     }
 
     public void enterTextinSearchField(String text) {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.elementToBeClickable(searchKeywordsInputField));
         searchKeywordsInputField.click();
         searchKeywordsInputField.sendKeys(text);
@@ -259,6 +270,23 @@ public class BasePage {
     public void jsClick(WebElement element) {
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("arguments[0].click()", element);
+    }
+
+    public void clickKupujemProdajemTitleIcon() {
+        click(kupujemProdajemTitleIcon);
+        wait.until(ExpectedConditions.urlContains("index.php"));
+    }
+
+    public int getNumberOfFollowedAds() {
+        if (driver.findElements(By.xpath("//*[@id='mojKpFollowedAdsCount']")).size() != 0) {
+            if (!followedAdCount.getText().isEmpty()) {
+                return Integer.parseInt(followedAdCount.getText());
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
     }
 }
 

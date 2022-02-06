@@ -60,10 +60,6 @@ public class SearchPage extends BasePage {
         return skupljeSort;
     }
 
-    /*public void compareSearchTextWithAdText(int i){
-        getAdFromListonBasePage(i);
-    }*/
-
     public String getAdTitleFromList(int i) {
         List<WebElement> adListofElements = driver.findElements(By.xpath("//*[contains(@id, 'adDescription')]"));
         WebElement element = adListofElements.get(i);
@@ -72,8 +68,7 @@ public class SearchPage extends BasePage {
         return adTitle;
     }
 
-    public void followAdd() {
-        WebDriverWait wait = new WebDriverWait(driver, 15);
+    public void followAd() {
         wait.until(ExpectedConditions.elementToBeClickable(followAd));
         click(followAd);
     }
