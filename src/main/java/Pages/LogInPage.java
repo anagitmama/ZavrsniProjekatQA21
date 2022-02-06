@@ -40,16 +40,12 @@ public class LogInPage extends BasePage {
     }
 
     public void enterEmail(String email) {
-//        WebDriverWait wait = new WebDriverWait(driver, 5);
-//        wait.until(ExpectedConditions.visibilityOf(emailField));
         assert isElementPresent(emailField) : "Error login form is not open";
         emailField.click();
         emailField.sendKeys(email);
     }
 
     public void enterPassword(String password) {
-//        WebDriverWait wait = new WebDriverWait(driver, 5);
-//        wait.until(ExpectedConditions.visibilityOf(passwordField));
         assert isElementPresent(passwordField) : "Error login form is not open";
         passwordField.click();
         passwordField.sendKeys(password);
@@ -61,27 +57,27 @@ public class LogInPage extends BasePage {
     }
 
     public void assertInvalidLogIn() {
-        new WebDriverWait(driver, 15).until(ExpectedConditions.visibilityOf(invalidCredentialsError));
+        wait.until(ExpectedConditions.visibilityOf(invalidCredentialsError));
         assert isElementPresent(invalidCredentialsError) : "Error invalid credentials";
         assert invalidCredentialsError.getText().equals("Neispravan format e-mail adrese") : "ne radi";
     }
 
 
     public void assertValidEmailInvalidPasswordLogIn() {
-        new WebDriverWait(driver, 15).until(ExpectedConditions.visibilityOf(invalidPasswordErrorBox));
+        wait.until(ExpectedConditions.visibilityOf(invalidPasswordErrorBox));
         assert isElementPresent(invalidPasswordErrorBox) : "Error invalid password";
         assert invalidPasswordErrorBox.getText().equals("Pogrešna lozinka") : "ne radi";
     }
 
     public void assertNonexistentEmailValidPasswordLogIn() {
-        new WebDriverWait(driver, 15).until(ExpectedConditions.visibilityOf(unknownEmailAdress));
+        wait.until(ExpectedConditions.visibilityOf(unknownEmailAdress));
         assert isElementPresent(unknownEmailAdress) : "Error invalid email";
         assert unknownEmailAdress.getText().equals("Nepoznata e-mail adresa") : "ne radi";
     }
 
     public void assertEmptyCredentialsLogIn() {
-        new WebDriverWait(driver, 15).until(ExpectedConditions.visibilityOf(emailRequired));
-        new WebDriverWait(driver, 15).until(ExpectedConditions.visibilityOf(passwordRequired));
+        wait.until(ExpectedConditions.visibilityOf(emailRequired));
+        wait.until(ExpectedConditions.visibilityOf(passwordRequired));
         assert isElementPresent(emailRequired) : "Error required email";
         assert emailRequired.getText().equals("Polje ne može biti prazno") : "ne radi";
         assert passwordRequired.getText().equals("Polje ne može biti prazno") : "ne radi";

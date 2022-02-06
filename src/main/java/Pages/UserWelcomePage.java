@@ -10,8 +10,7 @@ public class UserWelcomePage extends BasePage {
 
     @FindBy(xpath = "//*[@data-role='auth-link']")
     WebElement logOutButton;
-    @FindBy(xpath = "//*[@title='KupujemProdajem']")
-    WebElement kupujemProdajemTitleIcon;
+
 
 
     public UserWelcomePage(WebDriver driver) {
@@ -19,13 +18,11 @@ public class UserWelcomePage extends BasePage {
     }
 
     public void assertLogoutButtonPresent() {
-        new WebDriverWait(driver, 15).until(ExpectedConditions.visibilityOf(logOutButton));
+        wait.until(ExpectedConditions.visibilityOf(logOutButton));
         assert isElementPresent(logOutButton) : "Error log out button not present";
         assert logOutButton.getText().equals("Izlogujte se") : "ne radi";
     }
 
-    public void clickKupujemProdajemTitleIcon() {
-        click(kupujemProdajemTitleIcon);
-    }
+
 
 }

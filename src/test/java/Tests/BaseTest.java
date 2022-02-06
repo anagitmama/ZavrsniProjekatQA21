@@ -5,23 +5,27 @@ import Pages.LogInPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static Pages.Strings.*;
 
 public class BaseTest {
 
-    WebDriver driver = null;
+    protected WebDriver driver;
+    protected WebDriverWait wait;
 
-    public WebDriver OpenChromeDriver(){
-        print("Opening ChromeDriver");
+    public void OpenChromeDriver() {
+        print(OPENING_CHROME_DRIVER);
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(new String []{"--ignore-certificate-errors"});
-        options.addArguments(new String []{"--disable-popup-blocking"});
-        options.addArguments(new String []{"--incognito"});
+        options.addArguments("--ignore-certificate-errors");
+        options.addArguments("--disable-popup-blocking");
+        options.addArguments("--incognito");
         driver = new ChromeDriver(options);
-        driver.get("https://www.kupujemprodajem.com/");
-        return driver;
+        driver.get(HOME_PAGE);
+        wait = new WebDriverWait(driver, 15);
     }
 
-    protected LogInPage login(String username, String password){
+    protected LogInPage login(String username, String password) {
         BasePage basePage = new BasePage(driver);
         basePage.closeLogInModal();
         basePage.clickOpenLogInFormButton();
@@ -36,17 +40,17 @@ public class BaseTest {
         System.out.println(text);
     }
 
-    public boolean isCurrentURLEqualTo(String expectedURL){
-        print("is current URL equal to (" + expectedURL+ ")");
+    public boolean isCurrentURLEqualTo(String expectedURL) {
         String currentURL = driver.getCurrentUrl();
-        print("User is on " + currentURL);
+        print(USER_IS_ON + currentURL);
         boolean b = currentURL.equals(expectedURL);
         return b;
     }
+
     // Clear Cookies on the browser
     public void clearPreviousData() {
         driver.manage().deleteAllCookies();
-        driver.get("https://www.kupujemprodajem.com");
+        driver.get(HOME_PAGE);
     }
 
 }

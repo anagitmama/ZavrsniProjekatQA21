@@ -1,14 +1,19 @@
 package Tests;
 
 import Pages.BasePage;
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.text.ParseException;
 
+import static Pages.Strings.ABSENT_ELEMENT;
+import static Pages.Strings.VALUES_NOT_MATCHING;
+
 public class ExchangeCurrencyTest extends BaseTest {
+
+
+    public static final double TOLERANCE = 0.001;
 
     /**
      *
@@ -25,10 +30,9 @@ public class ExchangeCurrencyTest extends BaseTest {
      *
      **/
 
-    public WebDriver driver;
     @BeforeTest
     public void initDriver(){
-        driver = OpenChromeDriver();
+        OpenChromeDriver();
     }
 
     @AfterTest
@@ -40,21 +44,19 @@ public class ExchangeCurrencyTest extends BaseTest {
     public void EURtoRSDconversion() throws ParseException, InterruptedException {
        BasePage basePage = new BasePage(driver);
        basePage.closeLogInModal();
-       assert basePage.isElementPresent(basePage.getNBSwidget()) : "Element nije prisutan";
+       assert basePage.isElementPresent(basePage.getNBSwidget()) : ABSENT_ELEMENT;
        double amount = 200 ;
        basePage.enterValueIntoNbsAmountField(amount);
        double exchangedValue = basePage.getExchangedValue();
        print(Double.toString(exchangedValue));
        double expectedValue = amount*basePage.getExchangeRate();
-       System.out.println(expectedValue);
-       assert Math.abs(expectedValue - exchangedValue) < 0.001 : "Values not matching";
-       Thread.sleep(3000);
+       assert Math.abs(expectedValue - exchangedValue) < TOLERANCE : VALUES_NOT_MATCHING;
    }
     @Test
     public void RSDtoEURconversion() throws InterruptedException, ParseException {
         BasePage basePage = new BasePage(driver);
         basePage.closeLogInModal();
-        assert basePage.isElementPresent(basePage.getNBSwidget()) : "Element nije prisutan";
+        assert basePage.isElementPresent(basePage.getNBSwidget()) : ABSENT_ELEMENT;
         basePage.getEURdropdown().click();
         basePage.getRSDValue().click();
         Thread.sleep(3000);
@@ -63,9 +65,7 @@ public class ExchangeCurrencyTest extends BaseTest {
         double exchangedValue = basePage.getExchangedValue();
         print(Double.toString(exchangedValue));
         double expectedValue = amount/basePage.getExchangeRate();
-        System.out.println(expectedValue);
-        assert Math.abs(expectedValue - exchangedValue) < 0.001 : "Values not matching";
-        Thread.sleep(3000);
+        assert Math.abs(expectedValue - exchangedValue) < TOLERANCE : VALUES_NOT_MATCHING;
     }
 
    }
