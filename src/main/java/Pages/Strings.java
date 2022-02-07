@@ -37,6 +37,7 @@ public class Strings {
     public static final String INDEX = "index.php";
     public static final String IS_ELEMENT_PRESENT = "Is element present";
     public static final String JS_CLICK = "arguments[0].click()";
-    public static final String FAVOURITES = "favourites";
+    public static final String FAVOURITES = "favorites";
     public static final String EMPTY_STRING = "";
+    public static final String LOCATION_ID = "location_id";
 }
