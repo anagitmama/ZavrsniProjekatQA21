@@ -17,8 +17,8 @@ public class UserFavouritesPage extends BasePage {
 
     public void unfollowFavourites() {
         JavascriptExecutor jse = (JavascriptExecutor) driver;
-        for (int i = 0; i < unfollowAdList.size(); i++) {
-            jse.executeScript(Strings.JS_CLICK, unfollowAdList.get(i));
+        for (WebElement webElement : unfollowAdList) {
+            jse.executeScript(Strings.JS_CLICK, webElement);
         }
     }
 

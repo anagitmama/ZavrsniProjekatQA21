@@ -2,7 +2,6 @@ package Tests;
 
 import Pages.BasePage;
 import Pages.LogInPage;
-import Pages.Strings;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -46,8 +45,7 @@ public class BaseTest {
     public boolean isCurrentURLEqualTo(String expectedURL) {
         String currentURL = driver.getCurrentUrl();
         print(USER_IS_ON + currentURL);
-        boolean b = currentURL.equals(expectedURL);
-        return b;
+        return currentURL.equals(expectedURL);
     }
 
     // Clear Cookies on the browser
