@@ -71,7 +71,6 @@ public class BasePage {
     @FindBy(xpath = "//*[@title='KupujemProdajem']")
     WebElement kupujemProdajemTitleIcon;
 
-    /*konstruktor*/
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -86,7 +85,7 @@ public class BasePage {
         return locationKragujevac;
     }
 
-    public WebElement getLocationSort() {
+    public WebElement getLocationFilter() {
         return locationSort;
     }
 
@@ -158,8 +157,6 @@ public class BasePage {
         return instagramRedirect;
     }
 
-    //metode nad web elementima
-
     public void clickOpenLogInFormButton() {
         click(logInButton);
     }
@@ -200,8 +197,7 @@ public class BasePage {
     public boolean isElementPresent(WebElement element) {
         print(Strings.IS_ELEMENT_PRESENT);
         try {
-            boolean isPresent = element.isDisplayed();
-            return isPresent;
+            return element.isDisplayed();
         } catch (Exception e) {
             print(e.getMessage());
             print(Strings.ELEMENT_NOT_PRESENT);
@@ -255,13 +251,11 @@ public class BasePage {
         List<WebElement> adListofElements = driver.findElements(By.xpath("//*[contains(@class, 'adName')]"));
         WebElement element = adListofElements.get(i);
         wait.until(ExpectedConditions.elementToBeClickable(element));
-//        element.click();
-//        Thread.sleep(5000);
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript(Strings.JS_CLICK, element);
     }
 
-    public void enterTextinSearchField(String text) {
+    public void enterTextInSearchField(String text) {
         wait.until(ExpectedConditions.elementToBeClickable(searchKeywordsInputField));
         searchKeywordsInputField.click();
         searchKeywordsInputField.sendKeys(text);
@@ -278,12 +272,9 @@ public class BasePage {
     }
 
     public int getNumberOfFollowedAds() {
-        if (driver.findElements(By.xpath("//*[@id='mojKpFollowedAdsCount']")).size() != 0) {
-            if (!followedAdCount.getText().isEmpty()) {
-                return Integer.parseInt(followedAdCount.getText());
-            } else {
-                return 0;
-            }
+        if (driver.findElements(By.xpath("//*[@id='mojKpFollowedAdsCount']")).size() != 0
+                && !followedAdCount.getText().isEmpty()) {
+            return Integer.parseInt(followedAdCount.getText());
         } else {
             return 0;
         }

@@ -4,13 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class UserWelcomePage extends BasePage {
 
     @FindBy(xpath = "//*[@data-role='auth-link']")
     WebElement logOutButton;
-
 
 
     public UserWelcomePage(WebDriver driver) {
@@ -22,7 +20,6 @@ public class UserWelcomePage extends BasePage {
         assert isElementPresent(logOutButton) : "Error log out button not present";
         assert logOutButton.getText().equals("Izlogujte se") : "ne radi";
     }
-
 
 
 }
