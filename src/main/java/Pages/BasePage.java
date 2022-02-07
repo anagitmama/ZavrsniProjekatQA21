@@ -70,11 +70,23 @@ public class BasePage {
     WebElement followedAdCount;
     @FindBy(xpath = "//*[@title='KupujemProdajem']")
     WebElement kupujemProdajemTitleIcon;
+    @FindBy(xpath = "//*[@id=\"userMojKPLeft\"]/div/a[6]")
+    WebElement savedSearches;
+    @FindBy(xpath = "  //*[@class='saved-title']")
+    WebElement savedUnexistentKeywordSearch;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         wait = new WebDriverWait(driver, 15);
+    }
+
+    public WebElement getSavedUnexistentKeywordSearch() {
+        return savedUnexistentKeywordSearch;
+    }
+
+    public WebElement getSavedSearches() {
+        return savedSearches;
     }
 
     public WebElement getFollowedAdCount() {

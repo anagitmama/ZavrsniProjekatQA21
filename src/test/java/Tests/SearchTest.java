@@ -2,6 +2,7 @@ package Tests;
 
 import Pages.BasePage;
 import Pages.SearchPage;
+import Pages.Strings;
 import Pages.UserWelcomePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -48,8 +49,8 @@ public class SearchTest extends BaseTest {
      */
 
     @Test
-    public void searchForProduct() throws InterruptedException {
-        searchForKeyword();
+    public void searchForValidKeywordProduct()  {
+        searchForKeyword(AUTO_NEWLINE);
         String currentURL = driver.getCurrentUrl();
         boolean b = currentURL.contains(SEARCH);
         assert b : NOT_ON_SEARCH_RESULTS;
@@ -81,7 +82,7 @@ public class SearchTest extends BaseTest {
      */
     @Test
     public void sortingByHighestPrice() throws InterruptedException, ParseException {
-        searchForKeyword();
+        searchForKeyword(AUTO_NEWLINE);
         wait.until(ExpectedConditions.urlContains(SEARCH));
         SearchPage searchPage = new SearchPage(driver);
         searchPage.jsClick(searchPage.getSortPrices());
@@ -125,7 +126,7 @@ public class SearchTest extends BaseTest {
      */
     @Test
     public void sortByLocation() {
-        searchForKeyword();
+        searchForKeyword(AUTO_NEWLINE);
         basePage.jsClick(basePage.getLocationFilter());
         basePage.jsClick(basePage.getLocationKragujevac());
         SearchPage searchPage = new SearchPage(driver);
@@ -137,18 +138,43 @@ public class SearchTest extends BaseTest {
         }
     }
 
+    /**
+     * CASE 4: Search for keyword matching no ads
+     * PRECONDITION: Sign in with valid credentials
+     * Test steps:
+     * 1. Upon login click on KupujemProdajemTitleIcon and redirect to base page
+     * 2. Click inside search field
+     * 3. Enter search keyword into search field
+     * 4. Click on "Trazi" button
+     * <p>
+     * Expected result:
+     * 1. Verify that the user is redirected to the Search page URL
+     * 2. Verify that box appears that signals the user that there are no ads matching their search criteria
+     * 3. Verify that the list of ads prices contains 0 elements
+     */
+    @Test
+    public void searchForInvalidKeywordProduct() {
+        searchForKeyword(NONEXISTENT_KEYWORD);
+        String currentURL = driver.getCurrentUrl();
+        boolean b = currentURL.contains(SEARCH);
+        assert b : NOT_ON_SEARCH_RESULTS;
+        SearchPage searchPage = new SearchPage(driver);
+        assert searchPage.isElementPresent(searchPage.getSearchNoAdsContentBox()) : KEYWORD_FOUND_SEARCH_RESULT_VALID;
+        assert searchPage.getAdPrices().size() == 0 : KEYWORD_FOUND_SEARCH_RESULT_VALID;
+    }
+
     private double konvertujUDIN(String vrednostUEUR) throws ParseException {
         basePage.enterValueIntoNbsAmountField(vrednostUEUR);
         return basePage.getExchangedValue();
     }
 
-    private void searchForKeyword() {
+    private void searchForKeyword(String KEYWORD) {
         clearPreviousData();
         login(VALID_EMAIL, VALID_PASSWORD);
         wait.until(ExpectedConditions.urlContains(WELCOME));
         UserWelcomePage welcomePage = new UserWelcomePage(driver);
         welcomePage.clickKupujemProdajemTitleIcon();
-        basePage.enterTextInSearchField(AUTO_NEWLINE);
+        basePage.enterTextInSearchField(KEYWORD);
         wait.until(ExpectedConditions.urlContains(SEARCH));
     }
 }

@@ -24,9 +24,21 @@ public class SearchPage extends BasePage {
     WebElement skupljeSort;
     @FindBy(xpath = "//*[text()='Sortiraj']")
     WebElement sortPrices;
+    @FindBy(xpath = "//*[@class='pageNotification']")
+    WebElement searchNoAdsContentBox;
+    @FindBy(xpath = "//*[@id='saveButton']")
+    WebElement saveNotificationAlert;
 
     public SearchPage(WebDriver driver) {
         super(driver);
+    }
+
+    public WebElement getSearchNoAdsContentBox() {
+        return searchNoAdsContentBox;
+    }
+
+    public WebElement getSaveNotificationAlert() {
+        return saveNotificationAlert;
     }
 
     public WebElement getFollowAd() {

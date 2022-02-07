@@ -40,4 +40,6 @@ public class Strings {
     public static final String FAVOURITES = "favorites";
     public static final String EMPTY_STRING = "";
     public static final String LOCATION_ID = "location_id";
+    public static final String NONEXISTENT_KEYWORD = "krempita\n";
+    public static final String KEYWORD_FOUND_SEARCH_RESULT_VALID = "KEYWORD FOUND, SEARCH RESULT VALID";
 }
