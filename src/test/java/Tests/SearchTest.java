@@ -120,9 +120,9 @@ public class SearchTest extends BaseTest {
      * <p>
      * Expected result:
      * 1. Verify that the user is redirected to the Search page URL
-     * 2. Verify that each element in the list of locations is equal to "Kragujevac"
+     * 2. Verify that url contains location parameter when the location filter is applied
+     * 3. Verify that each element in the list of locations is equal to "Kragujevac"
      */
-
     @Test
     public void sortByLocation() {
         searchForKeyword();
@@ -130,11 +130,11 @@ public class SearchTest extends BaseTest {
         basePage.jsClick(basePage.getLocationKragujevac());
         SearchPage searchPage = new SearchPage(driver);
         searchPage.jsClick(searchPage.getSearchButton());
-        List<WebElement> elementiLokacije = new ArrayList<>(searchPage.getLocationPlace());
-        elementiLokacije.remove(0);
-        elementiLokacije.forEach(i -> {
-            assert i.getText().equals(KRAGUJEVAC) : "Pogresna lokacija, dobijeno: " + i.getText() + ", ocekivano: Kragujevac";
-        });
+        wait.until(ExpectedConditions.urlContains(LOCATION_ID));
+        for (int i = 1; i < searchPage.getLocationPlace().size(); i++){
+            assert searchPage.getLocationPlace().get(i).getText().equals(KRAGUJEVAC): "Pogresna lokacija, dobijeno: " + i + ", ocekivano: Kragujevac";
+
+        }
     }
 
     private double konvertujUDIN(String vrednostUEUR) throws ParseException {
@@ -149,5 +149,6 @@ public class SearchTest extends BaseTest {
         UserWelcomePage welcomePage = new UserWelcomePage(driver);
         welcomePage.clickKupujemProdajemTitleIcon();
         basePage.enterTextInSearchField(AUTO_NEWLINE);
+        wait.until(ExpectedConditions.urlContains(SEARCH));
     }
 }
